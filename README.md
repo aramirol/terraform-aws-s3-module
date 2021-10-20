@@ -5,3 +5,5 @@
 ![](https://img.shields.io/badge/localstack-latest-white?logo=github)
 
 Simple terraform module testing with `localstack`.
+
+![](images/module-pipeline.png)
