@@ -1,10 +1,8 @@
 podTemplate {
     node(jenkins-slave) {
         // pipeline steps...
-    }
-}
-
-// Jenkinsfile
+        
+        // Jenkinsfile
 String credentialsId = 'aws_test'
 
 def TEST_DIR='./test'
@@ -122,3 +120,8 @@ finally {
     currentBuild.result = 'SUCCESS'
   }
 }
+        
+    }
+}
+
+
