@@ -1,3 +1,9 @@
+podTemplate {
+    node(jenkins-slave) {
+        // pipeline steps...
+    }
+}
+
 // Jenkinsfile
 String credentialsId = 'aws_test'
 
