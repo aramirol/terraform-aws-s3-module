@@ -1,4 +1,4 @@
-# Terraform AWS EC2 Module
+# Terraform AWS S3 Module
 
 ![](https://img.shields.io/badge/terraform-v1.0.9-blueviolet?logo=terraform)
 ![](https://img.shields.io/badge/aws-3.63.0-yellow?logo=amazonaws)
@@ -18,7 +18,7 @@ provider "aws" {
   secret_key                  = "mock_secret_key"
 
   endpoints {
-    ec2            = "http://127.0.0.1:4566"
+    s3            = "http://127.0.0.1:4566"
   }
 }
 ```

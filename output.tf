@@ -1,14 +1,9 @@
-output "instances_ip" {
-  description = "Instance IP"
-  value       = "${aws_instance.instance_test.*.public_ip}"
+output "backet_name" {
+  description = "Bucket name"
+  value       = "${aws_s3_bucket.bucket_test.*.name}"
 }
 
-output "instances_type" {
-  description = "Instance Type "
-  value       = "${aws_instance.instance_test.*.instance_type}"
-}
-
-output "instances_id" {
-  description = "Instance ID "
-  value       = "${aws_instance.instance_test.*.id}"
+output "backet_acl" {
+  description = "Bucket ACL"
+  value       = "${aws_s3_bucket.bucket_test.*.acl}"
 }

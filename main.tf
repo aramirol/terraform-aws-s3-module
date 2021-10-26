@@ -1,12 +1,11 @@
-# EC2 resource
+# S3 resource
 
-resource "aws_instance" "instance_test" {
-  count         = var.instance_count
-  ami           = var.instance_ami
-  instance_type = var.instance_type
+resource "aws_s3_bucket" "bucket_test" {
+  bucket = var.bucket_name
+  acl    = var.bucket_acl
 
   tags = {
-    System = "Linux AMI"
-    Name = "Instance test"
+    Name        = "My bucket"
+    Environment = "Bucket test"
   }
 }
