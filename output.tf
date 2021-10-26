@@ -1,6 +1,6 @@
 output "backet_name" {
   description = "Bucket name"
-  value       = "${aws_s3_bucket.bucket_test.*.name}"
+  value       = "${aws_s3_bucket.bucket_test.*.bucket}"
 }
 
 output "backet_acl" {
