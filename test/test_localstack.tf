@@ -33,8 +33,8 @@ provider "aws" {
   }
 }
 
-# EC2 module
+# S3 module
 
-module "ec2" {
+module "s3" {
   source          = "../"
 }

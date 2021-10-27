@@ -1,4 +1,4 @@
-# EC2 vars
+# S3 vars
 
 variable "bucket_name" {
   description = "Name of the bucket"
