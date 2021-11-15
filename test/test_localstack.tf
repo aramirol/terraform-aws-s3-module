@@ -38,3 +38,8 @@ provider "aws" {
 module "s3" {
   source          = "../"
 }
+
+output "s3_all" {
+  description = "Show all"
+  value       = module.s3.*
+}
