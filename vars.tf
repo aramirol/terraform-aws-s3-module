@@ -2,7 +2,7 @@
 
 variable "bucket_name" {
   description = "Name of the bucket"
-  default = "bucket-test"
+  default = "aramirol-terraform-bucket-test-1984"
 }
 
 variable "bucket_acl" {
