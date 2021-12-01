@@ -25,9 +25,6 @@
 
 
 def credentialsForTestWrapper(block) {
-
-    String credentialsId = 'aws_test'
-
     withCredentials([
         $class: 'AmazonWebServicesCredentialsBinding',
         credentialsId: "aws_test"
