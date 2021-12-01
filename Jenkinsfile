@@ -1,29 +1,6 @@
-//def credentialsForTestWrapper(block) {
-    // it's a module repo, we only use dev credentials for developing and testing
-    // once code has been merged to master, use dev credentials to finish the unit testing
-    //withCredentials([
-    //    [
-    //        $class: 'ConjurSecretApplianceCredentialsBinding',
-    //        credentialsId: "cpiactoolchain",
-    //        sPath: "projects/iactcprd/prod/variables/TERRA_EXAMPLE_AK",
-    //        // variable: 'TERRA_EXAMPLE_AK'
-    //        variable: 'AWS_ACCESS_KEY_ID'
-    //    ],
-    //    [
-    //        $class: 'ConjurSecretApplianceCredentialsBinding',
-    //        credentialsId: "cpiactoolchain",
-    //        sPath: "projects/iactcprd/prod/variables/TERRA_EXAMPLE_SK",
-    //        // variable: 'TERRA_EXAMPLE_SK'
-    //        variable: 'AWS_SECRET_ACCESS_KEY'
-    //    ],
-    //]) {
-    //    block.call()
-    //}
-//}
+// JENKINSFILE
 
-//String credentialsId = 'aws_test'
-
-
+// Defining AWS Credentials
 def credentialsForTestWrapper(block) {
     withCredentials([
         [
@@ -44,9 +21,10 @@ def credentialsForTestWrapper(block) {
     } 
 }
 
-
+// Set working directory
 def TEST_DIR='./tests'
 
+// Init pipeline
 pipeline{
     agent any
 
