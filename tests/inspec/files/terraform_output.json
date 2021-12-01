@@ -1,0 +1,26 @@
+{
+  "backet_acl": {
+    "sensitive": false,
+    "type": [
+      "tuple",
+      [
+        "string"
+      ]
+    ],
+    "value": [
+      "private"
+    ]
+  },
+  "backet_name": {
+    "sensitive": false,
+    "type": [
+      "tuple",
+      [
+        "string"
+      ]
+    ],
+    "value": [
+      "aramirol-tf-iac-test"
+    ]
+  }
+}

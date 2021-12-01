@@ -1,118 +1,104 @@
-// Jenkinsfile
-String credentialsId = 'aws_test'
+//def credentialsForTestWrapper(block) {
+    // it's a module repo, we only use dev credentials for developing and testing
+    // once code has been merged to master, use dev credentials to finish the unit testing
+    //withCredentials([
+    //    [
+    //        $class: 'ConjurSecretApplianceCredentialsBinding',
+    //        credentialsId: "cpiactoolchain",
+    //        sPath: "projects/iactcprd/prod/variables/TERRA_EXAMPLE_AK",
+    //        // variable: 'TERRA_EXAMPLE_AK'
+    //        variable: 'AWS_ACCESS_KEY_ID'
+    //    ],
+    //    [
+    //        $class: 'ConjurSecretApplianceCredentialsBinding',
+    //        credentialsId: "cpiactoolchain",
+    //        sPath: "projects/iactcprd/prod/variables/TERRA_EXAMPLE_SK",
+    //        // variable: 'TERRA_EXAMPLE_SK'
+    //        variable: 'AWS_SECRET_ACCESS_KEY'
+    //    ],
+    //]) {
+    //    block.call()
+    //}
+//}
 
-def TEST_DIR='./test'
-
-try {
-  stage('checkout') {
-    node {
-      cleanWs()
-      checkout scm
+def credentialsForTestWrapper(block) {
+    withCredentials([
+        $class: 'AmazonWebServicesCredentialsBinding',
+        credentialsId: credentialsId,
+        //accessKeyVariable: 'AWS_ACCESS_KEY_ID',
+        accessKeyVariable: 'AKIATMKNPZWPBWYBN6FR'
+        //secretKeyVariable: 'AWS_SECRET_ACCESS_KEY'
+        secretKeyVariable: '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'
+    ]) 
+    
+    {
+        block.call()
     }
-  }
-  // Run terraform init
-  stage('init') {
-    node {
-      dir (TEST_DIR) {
-        withCredentials([[
-          $class: 'AmazonWebServicesCredentialsBinding',
-          credentialsId: credentialsId,
-          accessKeyVariable: 'AWS_ACCESS_KEY_ID',
-          secretKeyVariable: 'AWS_SECRET_ACCESS_KEY'
-        ]]) {
-          ansiColor('xterm') {
-            sh 'terraform init'
-          }
-        }
-      }
-    }
-  }
-
-  // Run terraform plan
-  stage('plan') {
-    node {
-      dir (TEST_DIR) {
-        withCredentials([[
-          $class: 'AmazonWebServicesCredentialsBinding',
-          credentialsId: credentialsId,
-          accessKeyVariable: 'AWS_ACCESS_KEY_ID',
-          secretKeyVariable: 'AWS_SECRET_ACCESS_KEY'
-        ]]) {
-          ansiColor('xterm') {
-            sh 'terraform plan'     
-          }   
-        }
-      }
-    }
-  }
-
-  if (env.BRANCH_NAME == 'main') {
-
-    // Run terraform apply
-    stage('apply') {
-      node {
-        dir (TEST_DIR) {
-          withCredentials([[
-            $class: 'AmazonWebServicesCredentialsBinding',
-            credentialsId: credentialsId,
-            accessKeyVariable: 'AWS_ACCESS_KEY_ID',
-            secretKeyVariable: 'AWS_SECRET_ACCESS_KEY'
-          ]]) {
-            ansiColor('xterm') {
-              sh 'terraform apply -auto-approve'
-            }
-          }
-        }
-      }
-    }
-
-    // Run terraform show
-    stage('show') {
-      node {
-        dir (TEST_DIR) {
-          withCredentials([[
-            $class: 'AmazonWebServicesCredentialsBinding',
-            credentialsId: credentialsId,
-            accessKeyVariable: 'AWS_ACCESS_KEY_ID',
-            secretKeyVariable: 'AWS_SECRET_ACCESS_KEY'
-          ]]) {
-            ansiColor('xterm') {
-              sh 'terraform show'
-            }
-          }
-        }
-      }
-    }
-
-    // Run terraform destroy
-    stage('destroy') {
-      node {
-        dir (TEST_DIR) {
-          withCredentials([[
-            $class: 'AmazonWebServicesCredentialsBinding',
-            credentialsId: credentialsId,
-            accessKeyVariable: 'AWS_ACCESS_KEY_ID',
-            secretKeyVariable: 'AWS_SECRET_ACCESS_KEY'
-          ]]) {
-            ansiColor('xterm') {
-              sh 'terraform destroy -auto-approve'
-            }
-          }
-        }
-      }
-    }
-  }
-  currentBuild.result = 'SUCCESS'
 }
-catch (org.jenkinsci.plugins.workflow.steps.FlowInterruptedException flowError) {
-  currentBuild.result = 'ABORTED'
-}
-catch (err) {
-  currentBuild.result = 'FAILURE'
-  throw err
-}
-finally {
-  if (currentBuild.result == 'SUCCESS') {
-    currentBuild.result = 'SUCCESS'
-  }
+
+
+def TEST_DIR='./tests'
+
+pipeline{
+    agent any
+
+    options {
+        ansiColor('xterm')
+        lock resource: 'terraform_landing_network'
+    }
+
+    stages {
+        stage("Validate Terraform resources") {
+            steps {
+              dir (TEST_DIR) {
+                credentialsForTestWrapper {
+                    sh """
+                    /opt/terraform/terraform init
+                    /opt/terraform/terraform validate
+                    /opt/terraform/terraform plan
+                    """
+                }
+              }
+            }
+        }
+
+        stage("Apply Terraform resources on Cloud") {
+            steps {
+              dir (TEST_DIR) {
+                credentialsForTestWrapper {
+                    sh "/opt/terraform/terraform apply -auto-approve -parallelism=2"
+                }
+              }
+            }
+        }
+
+        stage("Run unit test") {
+            steps {
+              dir (TEST_DIR) {
+                credentialsForTestWrapper {
+                    sh """
+                    rm -f ./inspec/inspec.lock
+                    rm -f ./inspec/files/terraform_output.json
+                    terraform output --json > ./inspec/files/terraform_output.json
+                    inspec exec inspec -t aws:// --chef-license accept-silent --reporter cli junit:./inspec/reports/junits_out.xml
+                    """
+                }
+              }
+            }
+        }
+    }
+
+    post {
+        always {
+          dir (TEST_DIR) {
+           credentialsForTestWrapper {
+              sh "/opt/terraform/terraform destroy -auto-approve -parallelism=2"
+           }
+             junit allowEmptyResults: true, testResults: './inspec/reports/junits_out.xml'
+          }
+        }
+        cleanup {
+            cleanWs()
+        }
+    }
 }

@@ -1,0 +1,10 @@
+<?xml version='1.0'?>
+<testsuites>
+  <testsuite name='s3tests' tests='4' failed='0' failures='0'>
+    <testcase name='S3 Bucket aramirol-tf-iac-test is expected to exist' classname='s3tests.S3BucketExists' target='aws://' time='0.001130963'/>
+    <testcase name='S3 Bucket aramirol-tf-iac-test region is expected to be in &quot;eu-central-1&quot;, &quot;eu-west-1&quot;, and &quot;us-west-2&quot;' classname='s3tests.S3Region' target='aws://' time='0.000228631'/>
+    <testcase name='S3 Bucket aramirol-tf-iac-test is expected not to be public' classname='s3tests.S3Security' target='aws://' time='0.192827631'/>
+    <testcase name='S3 Bucket aramirol-tf-iac-test is expected to have versioning enabled' classname='s3tests.S3Security' target='aws://' time='0.074877421'/>
+  </testsuite>
+  <testsuite name='inspec-aws' tests='0' failed='0' failures='0'/>
+</testsuites>
