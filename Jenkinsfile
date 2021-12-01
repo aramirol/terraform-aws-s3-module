@@ -27,7 +27,7 @@
 def credentialsForTestWrapper(block) {
     withCredentials([
         $class: 'AmazonWebServicesCredentialsBinding',
-        credentialsId: "aws_test"
+        String credentialsId: "aws_test"
         //accessKeyVariable: 'AWS_ACCESS_KEY_ID',
         //secretKeyVariable: 'AWS_SECRET_ACCESS_KEY'
         Variable: 'AWS_ACCESS_KEY_ID',
