@@ -33,9 +33,9 @@ def credentialsForTestWrapper(block) {
         Variable: 'AWS_ACCESS_KEY_ID',
         Variable: 'AWS_SECRET_ACCESS_KEY'
     ])
-    {
-        block.call()
-    } 
+//    {
+//        block.call()
+//    } 
 }
 
 
