@@ -61,9 +61,9 @@ pipeline{
               dir (TEST_DIR) {
                 credentialsForTestWrapper {
                     sh """
-                    /opt/terraform/terraform init
-                    /opt/terraform/terraform validate
-                    /opt/terraform/terraform plan
+                    terraform init
+                    terraform validate
+                    terraform plan
                     """
                 }
               }
@@ -74,7 +74,7 @@ pipeline{
             steps {
               dir (TEST_DIR) {
                 credentialsForTestWrapper {
-                    sh "/opt/terraform/terraform apply -auto-approve -parallelism=2"
+                    sh "terraform apply -auto-approve -parallelism=2"
                 }
               }
             }
@@ -100,7 +100,7 @@ pipeline{
         always {
           dir (TEST_DIR) {
            credentialsForTestWrapper {
-              sh "/opt/terraform/terraform destroy -auto-approve -parallelism=2"
+              sh "terraform destroy -auto-approve -parallelism=2"
            }
              junit allowEmptyResults: true, testResults: './inspec/reports/junits_out.xml'
           }
