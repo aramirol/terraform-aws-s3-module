@@ -21,7 +21,7 @@
     //}
 //}
 
-String credentialsId = 'aws_test'
+//String credentialsId = 'aws_test'
 
 
 def credentialsForTestWrapper(block) {
