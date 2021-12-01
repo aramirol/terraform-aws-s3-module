@@ -27,10 +27,10 @@ String credentialsId = 'aws_test'
 def credentialsForTestWrapper(block) {
 
     String credentialsId = 'aws_test'
-    
+
     withCredentials([[
         $class: 'AmazonWebServicesCredentialsBinding',
-        credentialsId: credentialsId,
+        credentialsId: "aws_test"
         accessKeyVariable: 'AWS_ACCESS_KEY_ID',
         secretKeyVariable: 'AWS_SECRET_ACCESS_KEY'
     ]]) 
