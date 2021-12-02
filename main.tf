@@ -1,9 +1,18 @@
-# S3 resource
+# S3 Module
+##################################################
 
+# Manages a single-Region or multi-Region primary KMS key.
+##################################################
+resource "aws_kms_key" "kms_bucket_key" {
+  description             = "This key is used to encrypt bucket objects"
+  deletion_window_in_days = var.bucket_key_deletion_days
+}
+
+# Provides a S3 bucket resource
+##################################################
 resource "aws_s3_bucket" "s3" {
   bucket = var.bucket_name
   acl    = var.bucket_acl
-  force_destroy = true
 
   lifecycle {
     prevent_destroy = false
@@ -16,7 +25,8 @@ resource "aws_s3_bucket" "s3" {
   server_side_encryption_configuration {
     rule {
       apply_server_side_encryption_by_default {
-        sse_algorithm = "AES256"
+        kms_master_key_id = aws_kms_key.kms_bucket_key.arn
+        sse_algorithm     = "aws:kms" # Also you can use AES256 without ksm_master_key_id"
       }
     }
   }
@@ -27,6 +37,8 @@ resource "aws_s3_bucket" "s3" {
   }
 }
 
+# Manages S3 bucket-level Public Access Block configuration
+##################################################
 resource "aws_s3_bucket_public_access_block" "s3_public_access" {
   bucket = aws_s3_bucket.s3.id
 

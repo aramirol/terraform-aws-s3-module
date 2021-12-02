@@ -1,4 +1,6 @@
+# Configuration options
+##################################################
+
 provider "aws" {
-  # Configuration options
-  region                      = "eu-central-1"
+  region  = var.bucket_region
 }
