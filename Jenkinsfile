@@ -34,7 +34,7 @@ pipeline{
     }
 
     stages {
-        stage("Validate Terraform resources") {
+        stage("Validate Terraform code") {
             steps {
               dir (TEST_DIR) {
                 credentialsForTestWrapper {
