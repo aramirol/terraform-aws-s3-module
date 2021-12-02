@@ -35,18 +35,18 @@ control "S3Security" do
   title "S3 Security Tests"
   desc "Checking if the AWS S3 bucket implements the mandatory security controls"
   
-  #describe aws_s3_bucket(bucketName) do
-  #  its('bucket_policy') { should_not be_empty }
-  #end
   describe aws_s3_bucket(bucketName) do
     it { should_not be_public }
   end
-#  describe aws_s3_bucket(bucketName) do
-#    it { should have_default_encryption_enabled }
-#  end
+  describe aws_s3_bucket(bucketName) do
+    it { should have_default_encryption_enabled }
+  end
   describe aws_s3_bucket(bucketName) do
     it { should have_versioning_enabled }
   end
+#  describe aws_s3_bucket(bucketName) do
+#    its('bucket_policy') { should_not be_empty }
+#  end
 #  describe aws_s3_buckets(bucket_names: bucketName) do
 #    its('tags') { should include(key: 'Name', value: 'Roche-test') }
 #    its('tags') { should include(:Environment => 'Dev-test',:Name => 'Roche-test')}
