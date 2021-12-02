@@ -3,7 +3,7 @@
 resource "aws_s3_bucket" "s3" {
   bucket = var.bucket_name
   acl    = var.bucket_acl
-  force_destroy = false
+  force_destroy = true
 
   lifecycle {
     prevent_destroy = false

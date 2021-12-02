@@ -58,7 +58,7 @@ pipeline{
             }
         }
 
-        stage("Run unit test") {
+        stage("Run unit test with inspec") {
             steps {
               dir (TEST_DIR) {
                 credentialsForTestWrapper {

@@ -3,8 +3,7 @@ content = inspec.profile.file("terraform_output.json")
 params  = JSON.parse(content)
 
 # Get json values
-#bucketName = params['bucket_name']['value']
-bucketName = 'aramirol-tf-iac-test'
+bucketName = params["s3_all"]["value"][0]["bucket_name"][0]
 
 # Local variables
 allowedRegions = [ "eu-central-1", "eu-west-1", "us-west-2" ]
