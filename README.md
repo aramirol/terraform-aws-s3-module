@@ -25,8 +25,8 @@ TECH-CICD: Jenkinsfile\
 
 ## From command line
 
-```bash
-$ git clone -b 1.0.0 –-depth 1 https://bitbk.roche.com/scm/iac_eng/terraform-module-aws-s3-example.git
+```sh
+$ git clone -b 0.1.0 –-depth 1 https://bitbk.roche.com/scm/iac_eng/terraform-module-aws-s3-example.git
 $ cd terraform-module-aws-s3-example
 $ terraform init
 $ terraform validate
