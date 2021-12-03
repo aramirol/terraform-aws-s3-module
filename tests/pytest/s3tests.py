@@ -1,35 +1,41 @@
-# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-# SPDX-License-Identifier: Apache-2.0
-
-"""
-Unit tests for bucket_wrapper.py functions.
-"""
-
-import io
-from urllib.parse import urlparse
-import uuid
+import os
+import json
+import boto3
 import pytest
 
-from botocore.exceptions import ClientError
 
-import bucket_wrapper
+# Test if there are more than 0 buckets
+def test_s3_bucket_created():
+    # Call S3 to list current buckets
+	s3 = boto3.client('s3', region_name='eu-central-1')
+	response = s3.list_buckets()
 
-def test_bucket_exists(stub_and_patch, make_unique_name, make_bucket):
-    """Test that bucket existence is correctly determined."""
-    stubber = stub_and_patch(bucket_wrapper, 'get_s3')
+	# Get a list of all bucket names from the response
+	buckets = [bucket['Name'] for bucket in response['Buckets']]
 
-    bucket = make_bucket(stubber, bucket_wrapper.get_s3())
+	assert len(buckets) >= 1
 
-    stubber.stub_head_bucket(bucket.name)
 
-    assert bucket_wrapper.bucket_exists(bucket.name)
+# Print number of buckets
+client = boto3.client('s3')
+response = client.list_buckets()
+print(len(response['Buckets']))
 
-def test_bucket_not_exists(stub_and_patch, make_unique_name, make_bucket):
-    """Test that bucket nonexistence is correctly determined."""
-    stubber = stub_and_patch(bucket_wrapper, 'get_s3')
-    bucket_name = make_unique_name('bucket')
 
-    stubber.stub_head_bucket(bucket_name, error_code='NoSuchBucket')
+# Print the name of the bucket
+s3 = boto3.client('s3', region_name='eu-central-1')
+response = s3.list_buckets()
+print('Existing buckets:')
+for bucket in response['Buckets']:
+    if bucket["Name"] == "aramirol-tf-iac-test":
+        print(f'  {bucket["Name"]}')
 
-    assert not bucket_wrapper.bucket_exists(bucket_name)
-    
+
+# Test if I can list all buckets
+def test_s3_bucket_list():
+    # Call S3 to list current buckets
+	s3 = boto3.client('s3', region_name='eu-central-1')
+	response = s3.list_buckets()
+
+	# Get a list of all bucket names from the response
+	assert [bucket['Name'] for bucket in response['Buckets']]
