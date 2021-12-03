@@ -23,6 +23,8 @@ def credentialsForTestWrapper(block) {
 
 // Set working directory
 def TEST_DIR='./tests'
+def TEST_PY_DIR='./tests/pytest'
+def TEST_IS_DIR='./tests/inspec'
 
 // Init pipeline
 pipeline{
@@ -75,15 +77,12 @@ pipeline{
 
         stage("Run unit test with PyTest") {
             steps {
-              dir (TEST_DIR) {
+              dir (TEST_PY_DIR) {
                 credentialsForTestWrapper {
                     sh """
-                    rm -rf ./pytest/terraform_output.json
-                    rm -rf ./pytest/.venv
-                    terraform output --json > ./pytest/terraform_output.json
-                    cd ./pytest
-                    python3 -m venv ./.venv
-                    source ./.venv/bin/activate
+                    terraform output --json > ./terraform_output.json
+                    python3 -m venv .venv
+                    source .venv/bin/activate
                     pip install --upgrade pip
                     pip install -r python-dependencies.txt
                     python3 -m pytest -v -s --color=yes -o junit_family=xunit2 --junitxml=./reports/junits_out.xml ../pytest/*.py
