@@ -80,6 +80,7 @@ pipeline{
                     sh """
                     cd ./pytest
                     terraform output --json > ./terraform_output.json
+                    pwd
                     """
                 }
               }
