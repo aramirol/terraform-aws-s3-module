@@ -93,13 +93,12 @@ pipeline{
           dir (TEST_DIR) {
            credentialsForTestWrapper {
 //              sh "terraform destroy -auto-approve -parallelism=2"
-                sh "terraform show"
            }
              junit allowEmptyResults: true, testResults: './inspec/reports/junits_out.xml'
           }
         }
-        cleanup {
-            cleanWs()
-        }
+//        cleanup {
+//            cleanWs()
+//        }
     }
 }
