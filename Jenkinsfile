@@ -78,8 +78,8 @@ pipeline{
               dir (TEST_DIR) {
                 credentialsForTestWrapper {
                     sh """
+                    terraform output --json > ./pytest/terraform_output.json
                     cd ./pytest
-                    terraform output --json > ./terraform_output.json
                     python3 -m venv .venv
                     source .venv/bin/activate
                     pip install --upgrade pip
