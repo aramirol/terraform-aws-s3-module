@@ -78,13 +78,15 @@ pipeline{
               dir (TEST_DIR) {
                 credentialsForTestWrapper {
                     sh """
+                    rm -rf ./pytest/terraform_output.json
+                    rm -rf ./pytest/.venv
                     terraform output --json > ./pytest/terraform_output.json
                     cd ./pytest
-                    python3 -m venv .venv
-                    source .venv/bin/activate
+                    python3 -m venv ./.venv
+                    source ./.venv/bin/activate
                     pip install --upgrade pip
                     pip install -r python-dependencies.txt
-                    python3 -m pytest -v -s --color=yes -o junit_family=xunit2 --junitxml=reports/junit_output.xml ../pytest/*.py
+                    python3 -m pytest -v -s --color=yes -o junit_family=xunit2 --junitxml=./reports/junits_out.xml ../pytest/*.py
                     """
                 }
               }
