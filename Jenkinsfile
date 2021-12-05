@@ -23,8 +23,6 @@ def credentialsForTestWrapper(block) {
 
 // Set working directory
 def TEST_DIR='./tests'
-def TEST_PY_DIR='./tests/pytest'
-def TEST_IS_DIR='./tests/inspec'
 
 // Init pipeline
 pipeline{
@@ -77,9 +75,10 @@ pipeline{
 
         stage("Run unit test with PyTest") {
             steps {
-              dir (TEST_PY_DIR) {
+              dir (TEST_DIR) {
                 credentialsForTestWrapper {
                     sh """
+                    cd pytest
                     terraform output --json > ./terraform_output.json
                     python3 -m venv .venv
                     . .venv/bin/activate
