@@ -83,9 +83,6 @@ pipeline{
                     terraform output --json > ./terraform_output.json
                     python3 -m venv .venv
                     source .venv/bin/activate
-                    pip install --upgrade pip
-                    pip install -r python-dependencies.txt
-                    python3 -m pytest -v -s --color=yes -o junit_family=xunit2 --junitxml=./reports/junits_out.xml ../pytest/*.py
                     """
                 }
               }
