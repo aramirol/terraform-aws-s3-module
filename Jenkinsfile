@@ -80,7 +80,6 @@ pipeline{
               dir (TEST_PY_DIR) {
                 credentialsForTestWrapper {
                     sh """
-                    /bin/bash
                     terraform output --json > ./terraform_output.json
                     python3 -m venv .venv
                     . .venv/bin/activate
