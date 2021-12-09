@@ -7,9 +7,13 @@ Tests check that S3 bucket exists with some security controls.
 ## Changelog
 [View Changelog](CHANGELOG.md)
 
+## Dependencies
+
+[Python Unit Test dependencies](python-dependencies.txt)
+
 ## Test Script
 
-- `s3tests.rb` : Check the information of S3.
+- `s3tests.py` : Check the information of S3.
 
 ## Corresponding Requirements
 
@@ -24,7 +28,7 @@ A script is running in jenkins pipeline to auto convert the terraform output jso
 The script is as followings:
 
 ```
-terraform output --json > ./inspec/files/terraform_output.json
+terraform output --json > ./tests/terraform_output.json
 ```
 
 ## Run the Test Cases
@@ -34,5 +38,5 @@ Run test cases through scripts in the Jenkins pipeline.
 The script is as followings:
 
 ```sh
-inspec exec inspec -t aws:// --chef-license accept-silent --reporter cli junit:./inspec/reports/junits_out.xml
+python3 -m pytest -v -s --color=yes -o junit_family=xunit2 --junitxml=./reports/junits_out.xml ../pytest/s3tests.py
 ```
