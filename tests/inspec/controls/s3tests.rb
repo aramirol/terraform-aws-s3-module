@@ -32,7 +32,7 @@ end
 
 control "S3Security" do
   impact 1.0
-  title "aws-s3-002: Setup security compliance"
+  title "aws-s3-003: Setup security compliance"
   desc "Checking if the AWS S3 bucket implements the mandatory security controls"
   
   describe aws_s3_bucket(bucketName) do
