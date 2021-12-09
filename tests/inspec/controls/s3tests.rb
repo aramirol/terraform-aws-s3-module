@@ -10,9 +10,9 @@ allowedRegions = [ "eu-central-1", "eu-west-1", "us-west-2" ]
 
 # Controls
 
-control "S3BucketExists" do
+control "aws-s3-001" do
   impact 1.0
-  title "aws-s3-001: Setup a S3 bucket"
+  title "Setup a S3 bucket"
   desc "Checking if the AWS S3 bucket has been successfully created"
   
   describe aws_s3_bucket(bucketName) do
@@ -20,9 +20,9 @@ control "S3BucketExists" do
   end
 end
 
-control "S3Region" do
+control "aws-s3-002" do
   impact 1.0
-  title "aws-s3-002: Setup bucket in the specific region"
+  title "Setup bucket in the specific region"
   desc "Checking if the AWS S3 bucket is created in the right region"
   
   describe aws_s3_bucket(bucketName) do
@@ -30,9 +30,9 @@ control "S3Region" do
   end
 end
 
-control "S3Security" do
+control "aws-s3-003" do
   impact 1.0
-  title "aws-s3-003: Setup security compliance"
+  title "Setup security compliance"
   desc "Checking if the AWS S3 bucket implements the mandatory security controls"
   
   describe aws_s3_bucket(bucketName) do
