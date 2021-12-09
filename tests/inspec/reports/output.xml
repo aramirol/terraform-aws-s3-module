@@ -1,5 +1,0 @@
-<?xml version='1.0'?>
-<testsuites>
-  <testsuite name='s3tests' tests='0' failed='0' failures='0'/>
-  <testsuite name='inspec-aws' tests='0' failed='0' failures='0'/>
-</testsuites>
