@@ -20,6 +20,7 @@ Tests check that S3 bucket exists with some security controls.
 - [aws-s3-001.setup-a-s3-bucket.md](../../requirements/aws-s3-001.setup-a-s3-bucket.md)
 - [aws-s3-002.setup-bucket-in-the-specific-region.md](../../requirements/aws-s3-002.setup-bucket-in-the-specific-region.md)
 - [aws-s3-003.setup-security-compliance.md](../../requirements/aws-s3-003.setup-security-compliance.md)
+- [aws-s3-004.list-bucket-objects.md](../../requirements/aws-s3-004.list-bucket-objects.md)
 
 ## Inputs
 
@@ -28,7 +29,7 @@ A script is running in jenkins pipeline to auto convert the terraform output jso
 The script is as followings:
 
 ```
-terraform output --json > ./tests/terraform_output.json
+terraform output --json > ./tests/pytest/terraform_output.json
 ```
 
 ## Run the Test Cases
