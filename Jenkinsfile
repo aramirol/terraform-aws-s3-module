@@ -84,7 +84,7 @@ pipeline{
                     . .venv/bin/activate
                     pip install --upgrade pip
                     pip install -r python-dependencies.txt
-                    python3 -m pytest -v -s --color=yes -o junit_family=xunit2 --junitxml=./reports/junits_out.xml s3tests.py
+                    python3 -m pytest -v -s --color=yes -o junit_family=xunit2 --junitxml=reports/junits_out.xml s3tests.py
                     """
                 }
               }
@@ -98,7 +98,7 @@ pipeline{
            credentialsForTestWrapper {
               sh "terraform destroy -auto-approve -parallelism=2"
            }
-             junit allowEmptyResults: true, testResults: './inspec/reports/junits_out.xml'
+             junit allowEmptyResults: true, testResults: 'pytest/reports/junits_out.xml'
           }
         }
         cleanup {
