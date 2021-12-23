@@ -41,3 +41,27 @@ variable "bucket_key_deletion_days" {
     error_message = "It must be between 7 and 30, inclusive."
   }
 }
+
+variable "block_public_acls" {
+  desdescription = "Block Public ACLs"
+  type = bool
+  default = true
+}
+
+variable "block_public_policy" {
+  desdescription = "Block Public Policy"
+  type = bool
+  default = true
+}
+
+variable "ignore_public_acls" {
+  desdescription = "Ignore Public ACLs"
+  type = bool
+  default = true
+}
+
+variable "restrict_public_buckets" {
+  desdescription = "Restrict Public Buckets"
+  type = bool
+  default = true
+}
