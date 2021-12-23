@@ -43,25 +43,25 @@ variable "bucket_key_deletion_days" {
 }
 
 variable "block_public_acls" {
-  desdescription = "Block Public ACLs"
+  description = "Block Public ACLs"
   type = bool
   default = true
 }
 
 variable "block_public_policy" {
-  desdescription = "Block Public Policy"
+  description = "Block Public Policy"
   type = bool
   default = true
 }
 
 variable "ignore_public_acls" {
-  desdescription = "Ignore Public ACLs"
+  description = "Ignore Public ACLs"
   type = bool
   default = true
 }
 
 variable "restrict_public_buckets" {
-  desdescription = "Restrict Public Buckets"
+  description = "Restrict Public Buckets"
   type = bool
   default = true
 }
