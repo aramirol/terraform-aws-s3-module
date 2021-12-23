@@ -98,7 +98,7 @@ pipeline{
            credentialsForTestWrapper {
               sh "terraform destroy -auto-approve -parallelism=2"
            }
-             junit allowEmptyResults: true, testResults: './inspec/reports/junits_out.xml'
+             junit allowEmptyResults: true, testResults: 'pytest/reports/junits_out.xml'
           }
         }
         cleanup {
