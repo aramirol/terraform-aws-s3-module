@@ -14,6 +14,7 @@ variable "bucket_acl" {
 }
 
 variable "bucket_versioning" {
+  description = "Enable versioning mode"
   type = bool
   default = true
 }
