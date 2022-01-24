@@ -4,7 +4,7 @@
 variable "bucket_name" {
   description = "Name of the bucket"
   type = string
-  default = "aramirol-tf-iac-test"
+  default = "roche-tf-module-test-iac"
 }
 
 variable "bucket_acl" {
@@ -22,13 +22,13 @@ variable "bucket_region" {
 variable "bucket_tag_name" {
   description = "Tag Name"
   type = string
-  default = "Roche-test"
+  default = "roche-tf-module-test"
 }
 
 variable "bucket_tag_env" {
   description = "Tag Environment"
   type = string
-  default = "Dev-test"
+  default = "roche-dev-test"
 }
 
 variable "bucket_key_deletion_days" {

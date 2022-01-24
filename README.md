@@ -1,11 +1,10 @@
 # Terraform S3 Module example
 
-![](https://img.shields.io/badge/terraform-v1.0.9-blueviolet?logo=terraform)
-![](https://img.shields.io/badge/aws-3.63.0-yellow?logo=amazonaws)
-
-[![Build Status (Master)](https://rbalvjenkinm.bas.roche.com/job/IAC_ENG/job/IAC_ENG/job/terraform-module-aws-vpc-example/job/master/badge/icon)](https://rbalvjenkinm.bas.roche.com/job/IAC_ENG/job/IAC_ENG/job/terraform-module-aws-vpc-example/job/master/)
+[![Build Status (Master)](https://rbalvjenkinm.bas.roche.com/job/IAC_ENG/job/IAC_ENG/job/terraform-module-aws-s3-example/job/master/badge/icon)](https://rbalvjenkinm.bas.roche.com/job/IAC_ENG/job/IAC_ENG/job/terraform-module-aws-s3-example/job/master/)
 
 ## Introduction
+
+![](https://img.shields.io/badge/terraform-v1.0.9-blueviolet?logo=terraform) ![](https://img.shields.io/badge/aws-3.60.0-yellow?logo=amazonaws)
 
 This code is an example of a terraform module. Create an S3 cube with some additional settings like lifecycle, versioning, or encryption.
 
@@ -26,7 +25,7 @@ TECH-CICD: Jenkinsfile\
 ## From command line
 
 ```sh
-$ git clone -b 0.1.0 –-depth 1 https://bitbk.roche.com/scm/iac_eng/terraform-module-aws-s3-example.git
+$ git clone -b 1.0.0 –-depth 1 https://bitbk.roche.com/scm/iac_eng/terraform-module-aws-s3-example.git
 $ cd terraform-module-aws-s3-example
 $ terraform init
 $ terraform validate
@@ -64,6 +63,10 @@ output "s3_all" {
 | **bucket_tag_name** | `string` | yes | A tag with a name to the S3 bucket |
 | **bucket_tag_env** | `string` | yes | A tag with the environment where S3 bucket will be located |
 | **bucket_key_deletion_days** | `number` | yes | A number of days between 7 and 30 |
+| **block_public_acls** | `bool` | no | Block public acls. True as default |
+| **block_public_policy** | `bool` | no | Block public policy. True as default |
+| **ignore_public_acls** | `bool` | no | Ignore public acls. True as default |
+| **restrict_public_buckets** | `bool` | no | Restrict public buckets. True as default |
 
 ## Outputs
 
@@ -71,6 +74,7 @@ output "s3_all" {
 | ---- | ---- | ----------- |
 | **bucket_name** | `string` | Name of the S3 bucket created |
 | **bucket_acl** | `string` | ACL policy of the S3 bucket created |
+| **bucket_region** | `string` | Region where S3 bucket was created |
 
 ## Dependencies
 
