@@ -15,11 +15,11 @@ resource "aws_s3_bucket" "s3" {
   acl    = var.bucket_acl
 
   lifecycle {
-    prevent_destroy = var.bucket_lifecycle
+    prevent_destroy = false
   }
 
   versioning {
-    enabled = true
+    enabled = var.bucket_versioning
   }
 
   server_side_encryption_configuration {
