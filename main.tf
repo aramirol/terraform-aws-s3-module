@@ -15,7 +15,7 @@ resource "aws_s3_bucket" "s3" {
   acl    = var.bucket_acl
 
   lifecycle {
-    prevent_destroy = false
+    prevent_destroy = var.bucket_lifecycle
   }
 
   versioning {

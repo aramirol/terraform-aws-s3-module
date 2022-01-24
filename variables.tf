@@ -13,6 +13,16 @@ variable "bucket_acl" {
   default = "private"
 }
 
+variable "bucket_lifecycle" {
+  type = bool
+  default = false
+}
+
+variable "bucket_versioning" {
+  type = bool
+  default = true
+}
+
 variable "bucket_region" {
   description = "Region S3 located"
   type = string
