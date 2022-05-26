@@ -80,12 +80,12 @@ pipeline{
                     sh """
                     terraform output --json > ./pytest/terraform_output.json
                     cd pytest
-                    python3 -m venv .venv
-                    . .venv/bin/activate
-                    pip install --upgrade pip
-                    pip install -r python-dependencies.txt
                     python3 -m pytest -v -s --color=yes -o junit_family=xunit2 --junitxml=reports/junits_out.xml s3tests.py
                     """
+                    // python3 -m venv .venv
+                    // . .venv/bin/activate
+                    // pip install --upgrade pip
+                    // pip install -r python-dependencies.txt
                 }
               }
             }
